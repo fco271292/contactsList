@@ -8,8 +8,7 @@ class ContactLits {
 	static main(args) {
 		Operations operations = new Operations()
 		operations.showOptions()
-		FileManager fileManager = new FileManager()
-		File file = fileManager.generateFile()
+		
 	}
 
 }
