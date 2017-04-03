@@ -1,8 +1,9 @@
 package com.fco271292.appcontactlist.services
 
 import com.fco271292.appcontactlist.domain.PhoneBook
-import com.fco271292.appcontactlist.util.DateManager
-import com.fco271292.appcontactlist.util.FileManager
+import com.fco271292.appcontactlist.main.ContactLits
+import com.fco271292.appcontactlist.util.DateUtil
+import com.fco271292.appcontactlist.util.FileUtil
 
 import groovy.text.markup.AutoNewLineTransformer
 
@@ -11,8 +12,8 @@ class Operations {
 	Scanner scanner = new Scanner(System.in)
 	PhonebookAdministrator phoneBookAdministrator = new PhonebookAdministrator()
 	PhoneBook phoneBook = new PhoneBook()
-	FileManager fileManager = new FileManager()
-	File file = fileManager.generateFile()
+	FileUtil fileUtil = new FileUtil()
+	File file = fileUtil.generateFile()
 	
 	void showOptions(){
 		
@@ -35,6 +36,16 @@ class Operations {
 				PhoneBook phoneBook = captureForm()
 				phoneBookAdministrator.createContact(file, phoneBook)
 			break;
+			case "2":
+				println "Ingresa el nombre o apellido a buscar "
+				String patternToSearch = scanner.nextLine()
+				def contactList = phoneBookAdministrator.readContact(file,patternToSearch)
+				println contactList
+			break;
+			case "3":
+			break;
+			case "4":
+			break;
 			default:
 				println "Opcion invalida!"
 			break;
@@ -44,7 +55,7 @@ class Operations {
 	PhoneBook captureForm(){
 		
 		PhoneBook phoneBook = new PhoneBook()
-		DateManager dateManager = new DateManager()
+		DateUtil dateUtil = new DateUtil()
 		
 		String message = "\tAlta de contacto"
 		println message
@@ -55,7 +66,7 @@ class Operations {
 		
 		println "Ingresa fecha de nacimiento dd/MM/yyyy"
 		String birtDateInput = scanner.nextLine()
-		phoneBook.person.birthDate = dateManager.convertStringToDate(birtDateInput)
+		phoneBook.person.birthDate = dateUtil.convertStringToDate(birtDateInput)
 		
 		println "Ingresa email"
 		phoneBook.email = scanner.nextLine()
